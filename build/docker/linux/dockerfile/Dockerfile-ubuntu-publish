@@ -1,0 +1,9 @@
+FROM ubuntu:20.04
+
+RUN apt-get update && apt install -y gcc g++ build-essential ninja-build uuid-dev libx11-dev libxcb-xinput-dev
+
+ENV LC_ALL="C.UTF-8"
+
+ENV TIME_ZONE=Asia/Shanghai
+
+CMD ["/bin/bash"]

@@ -1,0 +1,42 @@
+FROM centos:centos7.9.2009
+
+MAINTAINER zhangqs
+
+RUN yum install -y gcc \
+  && yum install -y gcc-c++ \
+  && yum install -y curl \
+  && yum install -y unzip \
+  && yum install -y wget \
+  && yum install -y gdb \
+  && yum install -y libxcb-devel \
+  && yum install -y libuuid-devel \
+  && yum install -y make \
+  && yum install -y ninja-build \
+  && yum install -y libX11-devel \
+  && yum install -y centos-release-scl \
+  && yum install -y devtoolset-8-gcc* \
+  && mv /usr/bin/gcc /usr/bin/gcc-4.8.5 \
+  && ln -s /opt/rh/devtoolset-8/root/bin/gcc /usr/bin/gcc \
+  && mv /usr/bin/g++ /usr/bin/g++-4.8.5 \
+  && ln -s /opt/rh/devtoolset-8/root/bin/g++ /usr/bin/g++
+
+RUN yum clean all
+
+ARG engine_version_value="0.0.0.1"
+LABEL engine_version=$engine_version_value
+ARG engine_version_info_value=""
+LABEL engine_version_info=$engine_version_info_value
+RUN echo "start version 0.0.0.0"
+
+ARG engine_imagesid="0-0-0-1"
+ENV DUMP_IMAGEID_VERSION==$engine_imagesid
+
+ENV TZ=Asia/Shanghai
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+RUN localedef -i en_US -f UTF-8 en_US.UTF-8
+RUN echo "start version 0.0.1"   
+RUN localedef -i en_US -f UTF-8 en_US.UTF-8
+#RUN go env -w GOPROXY=https://goproxy.cn
+#RUN go env -w GO111MODULE=on
+
+ENTRYPOINT ["/bin/bash"]

@@ -1,0 +1,1 @@
+docker exec -it flexi-ubuntu-dev svn checkout --username=%USERNAME% http://engineex.svn.snail.com/engine_lib/vip/flexi_engine/branches/develop/  /svn

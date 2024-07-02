@@ -1,0 +1,77 @@
+FROM centos:centos7.9.2009
+
+MAINTAINER zhangqs
+
+RUN yum install -y gcc
+RUN yum install -y gcc-c++
+RUN yum install -y deltarpm
+RUN yum install -y epel-release
+RUN yum install -y e2fsprogs-devel
+RUN yum install -y uuid-devel
+RUN yum install -y libuuid-devel
+RUN yum install -y which
+RUN yum install -y openssl-devel
+RUN yum install -y curl
+RUN yum install -y unzip
+RUN yum install -y apr-devel
+RUN yum install -y apr-util-devel
+RUN yum install -y libunwind
+RUN yum install -y wget
+RUN yum install -y subversion
+RUN yum install -y gdb
+RUN yum install -y autoconf
+RUN yum install -y gflags-devel
+RUN yum install -y protobuf-devel
+RUN yum install -y protobuf-compiler
+RUN yum install -y leveldb-devel
+RUN yum install -y gperftools-devel
+RUN yum install -y openssh-server
+RUN yum install -y net-tools.x86_64
+RUN yum install -y gtest-devel
+RUN yum install -y telnet
+RUN yum install -y nodejs
+RUN yum install -y net-tools
+RUN yum install -y epel-release
+RUN yum install -y gperftools
+RUN yum install -y go
+RUN yum install -y cmake
+RUN yum install -y perl
+RUN yum install -y cpan
+RUN yum install -y git
+RUN yum install -y make
+RUN yum install -y libXau
+RUN yum install -y libxcb
+RUN yum install -y libX11
+RUN yum install -y libxcb-devel
+RUN yum install -y ninja-build
+RUN yum install -y libX11-devel
+RUN wget -c https://cmake.org/files/v3.24/cmake-3.24.1.tar.gz
+RUN tar -zxvf ./cmake-3.24.1.tar.gz
+RUN cd cmake-3.24.1 && ./bootstrap && gmake && make install
+RUN yum install -y centos-release-scl
+RUN yum install -y devtoolset-8-gcc*
+RUN  mv /usr/bin/gcc /usr/bin/gcc-4.8.5
+RUN ln -s /opt/rh/devtoolset-8/root/bin/gcc /usr/bin/gcc
+RUN mv /usr/bin/g++ /usr/bin/g++-4.8.5
+RUN ln -s /opt/rh/devtoolset-8/root/bin/g++ /usr/bin/g++
+
+RUN yum clean all
+
+ARG engine_version_value="0.0.0.1"
+LABEL engine_version=$engine_version_value
+ARG engine_version_info_value=""
+LABEL engine_version_info=$engine_version_info_value
+RUN echo "start version 0.0.0.0"
+
+ARG engine_imagesid="0-0-0-1"
+ENV DUMP_IMAGEID_VERSION==$engine_imagesid
+
+ENV TZ=Asia/Shanghai
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+RUN localedef -i en_US -f UTF-8 en_US.UTF-8
+RUN echo "start version 0.0.1"   
+RUN localedef -i en_US -f UTF-8 en_US.UTF-8
+#RUN go env -w GOPROXY=https://goproxy.cn
+#RUN go env -w GO111MODULE=on
+
+ENTRYPOINT ["/bin/bash"]

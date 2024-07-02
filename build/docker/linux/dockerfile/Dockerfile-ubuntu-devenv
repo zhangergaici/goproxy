@@ -1,0 +1,52 @@
+FROM ubuntu:20.04
+ENV LC_ALL "C.UTF-8"
+ENV TIME_ZONE Asia/Shanghai
+ENV DEBIAN_FRONTEND noninteractive
+RUN sed -i s@/archive.ubuntu.com/@/mirrors.aliyun.com/@g /etc/apt/sources.list
+
+# RUN apt-get install -y tzdata && ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+RUN apt-get update && apt install -y gcc g++ build-essential ninja-build uuid-dev libx11-dev libxcb-xinput-dev \
+    subversion gdb
+
+RUN apt update
+RUN apt install -y make
+RUN apt install -y cmake
+RUN apt install -y e2fslibs-dev
+RUN apt install -y libuuid1
+RUN apt install -y openssl
+RUN apt install -y curl
+RUN apt install -y unzip
+RUN apt install -y libapr1-dev
+RUN apt install -y libunwind-dev
+RUN apt install -y wget
+RUN apt install -y autoconf
+RUN apt install -y libgflags-dev
+RUN apt install -y libprotobuf-dev
+RUN apt install -y protobuf-compiler
+RUN apt install -y libleveldb-dev
+RUN apt install -y libgoogle-perftools-dev
+RUN apt install -y openssh-server
+RUN apt install -y net-tools
+RUN apt install -y libgtest-dev
+RUN apt install -y telnet
+RUN apt install -y perl
+RUN apt install -y cpanminus
+RUN apt install -y git
+RUN apt install -y zlib1g-dev
+RUN apt install -y libssl-dev
+RUN apt install -y libwayland-dev
+RUN apt install -y libxrandr-dev
+RUN apt install -y libxcb-keysyms1-dev
+RUN apt install -y libxcb1-dev
+RUN apt install -y python
+RUN apt install -y libperl-dev
+RUN apt install -y nodejs
+RUN apt install -y libaprutil1-dev
+RUN apt install -y software-properties-common
+RUN apt install -y libvulkan1
+RUN apt install -y mesa-vulkan-drivers
+RUN apt install -y vulkan-utils
+RUN apt install -y mesa-*
+RUN cpan -i --force File::Glob
+
+CMD ["/bin/bash"]
